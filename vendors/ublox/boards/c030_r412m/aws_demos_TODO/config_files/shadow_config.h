@@ -1,5 +1,4 @@
 /*
- * FreeRTOS Utils V1.1.3
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -18,34 +17,34 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * http://aws.amazon.com/freertos
- * http://www.FreeRTOS.org
  */
 
-#include <stdbool.h>
+#ifndef SHADOW_CONFIG_H_
+#define SHADOW_CONFIG_H_
 
-#include "FreeRTOS.h"
-#include "iot_system_init.h"
-#include "iot_secure_sockets.h"
-#include "iot_crypto.h"
+/**************************************************/
+/******* DO NOT CHANGE the following order ********/
+/**************************************************/
 
-
-/*-----------------------------------------------------------*/
-
-/**
- * @brief Initializes FreeRTOS libraries.
+/* Logging related header files are required to be included in the following order:
+ * 1. Include the header file "logging_levels.h".
+ * 2. Define LIBRARY_LOG_NAME and  LIBRARY_LOG_LEVEL.
+ * 3. Include the header file "logging_stack.h".
  */
-BaseType_t SYSTEM_Init( void )
-{
-    BaseType_t xResult = pdPASS;
 
-    CRYPTO_Init();
+/* Include header that defines log levels. */
+#include "logging_levels.h"
 
-    if( xResult == pdPASS )
-    {
-        //xResult = SOCKETS_Init();
-    }
+/* Configure name and log level for the Shadow library. */
+#ifndef LIBRARY_LOG_NAME
+    #define LIBRARY_LOG_NAME     "SHADOW"
+#endif
+#ifndef LIBRARY_LOG_LEVEL
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
+#endif
 
-    return xResult;
-}
+#include "logging_stack.h"
+
+/************ End of logging configuration ****************/
+
+#endif /* ifndef SHADOW_CONFIG_H_ */

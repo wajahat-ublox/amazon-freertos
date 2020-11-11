@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Utils V1.1.3
+ * FreeRTOS V1.1.4
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -23,29 +23,21 @@
  * http://www.FreeRTOS.org
  */
 
-#include <stdbool.h>
-
-#include "FreeRTOS.h"
-#include "iot_system_init.h"
-#include "iot_secure_sockets.h"
-#include "iot_crypto.h"
-
-
-/*-----------------------------------------------------------*/
+/**
+ * @file aws_test_wifi_config.h
+ * @brief Port-specific variables for Wi-Fi tests.
+ */
+#ifndef _AWS_TEST_WIFI_CONFIG_H_
+#define _AWS_TEST_WIFI_CONFIG_H_
 
 /**
- * @brief Initializes FreeRTOS libraries.
+ * @brief The task stack size used in all Wi-Fi multi-task tests.
  */
-BaseType_t SYSTEM_Init( void )
-{
-    BaseType_t xResult = pdPASS;
+#define testwifiTASK_STACK_SIZE             ( configMINIMAL_STACK_SIZE * 4 )    /* FIX ME. */
 
-    CRYPTO_Init();
+/**
+ * @brief The task priority used in all Wi-Fi mulit-task tests. 
+ */
+#define testwifiTASK_PRIORITY               ( tskIDLE_PRIORITY )                /* FIX ME. */
 
-    if( xResult == pdPASS )
-    {
-        //xResult = SOCKETS_Init();
-    }
-
-    return xResult;
-}
+#endif /* _AWS_TEST_WIFI_CONFIG_H_ */

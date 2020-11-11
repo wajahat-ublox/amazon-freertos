@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Utils V1.1.3
+ * FreeRTOS V1.1.4
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -23,29 +23,50 @@
  * http://www.FreeRTOS.org
  */
 
-#include <stdbool.h>
+/**
+ * @file aws_mqtt_config.h
+ * @brief MQTT config options.
+ */
 
-#include "FreeRTOS.h"
-#include "iot_system_init.h"
-#include "iot_secure_sockets.h"
-#include "iot_crypto.h"
+#ifndef _AWS_MQTT_CONFIG_H_
+#define _AWS_MQTT_CONFIG_H_
 
-
-/*-----------------------------------------------------------*/
+/* Unity includes. */
+#include "unity_internals.h"
 
 /**
- * @brief Initializes FreeRTOS libraries.
+ * @brief Define assert for test project.
  */
-BaseType_t SYSTEM_Init( void )
-{
-    BaseType_t xResult = pdPASS;
+#define mqttconfigASSERT( x )    if( ( x ) == 0 ) TEST_ABORT()
 
-    CRYPTO_Init();
+/**
+ * @brief Enable subscription management.
+ *
+ * This gives the user flexibility of registering a callback per subscription.
+ */
+#define mqttconfigENABLE_SUBSCRIPTION_MANAGEMENT            ( 1 )
 
-    if( xResult == pdPASS )
-    {
-        //xResult = SOCKETS_Init();
-    }
+/**
+ * @brief Maximum length of the topic which can be stored in subscription
+ * manager.
+ */
+#define mqttconfigSUBSCRIPTION_MANAGER_MAX_TOPIC_LENGTH     ( 128 )
 
-    return xResult;
-}
+/**
+ * @brief Maximum number of subscriptions which can be stored in subscription
+ * manager.
+ */
+#define mqttconfigSUBSCRIPTION_MANAGER_MAX_SUBSCRIPTIONS    ( 8 )
+
+/*
+ * Uncomment the following two lines to enable asserts.
+ */
+/* extern void vAssertCalled( const char *pcFile, uint32_t ulLine ); */
+/* #define mqttconfigASSERT( x ) if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ ) */
+
+/**
+ * @brief Set this macro to 1 for enabling debug logs.
+ */
+#define mqttconfigENABLE_DEBUG_LOGS                 ( 0 )
+
+#endif /* _AWS_MQTT_CONFIG_H_ */

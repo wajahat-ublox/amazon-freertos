@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Utils V1.1.3
+ * FreeRTOS Common IO V0.1.1
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -23,29 +23,32 @@
  * http://www.FreeRTOS.org
  */
 
-#include <stdbool.h>
-
-#include "FreeRTOS.h"
-#include "iot_system_init.h"
-#include "iot_secure_sockets.h"
-#include "iot_crypto.h"
+#ifndef _TEST_IOT_CONFIG_H_
+#define _TEST_IOT_CONFIG_H_
 
 
-/*-----------------------------------------------------------*/
+/* UART includes */
+#include "stm32F4xx_hal.h"
 
-/**
- * @brief Initializes FreeRTOS libraries.
- */
-BaseType_t SYSTEM_Init( void )
-{
-    BaseType_t xResult = pdPASS;
+#include "iot_sdio.h"
 
-    CRYPTO_Init();
+/*------------------------UART-------------------------------*/
 
-    if( xResult == pdPASS )
-    {
-        //xResult = SOCKETS_Init();
-    }
+/* UART is supported. */
+#define IOT_TEST_COMMON_IO_UART_SUPPORTED                    0
 
-    return xResult;
-}
+/* How many UART ports are being test. */
+#define UART_TEST_SET                                        1
+#define IOT_TEST_COMMON_IO_UART_SUPPORTED_CANCEL             1
+
+/* Instance ID 1 corresponds to USART2. */
+const uint8_t uartTestPort[ UART_TEST_SET ] = { 1 };
+/* Following configurations are not being used for now. */
+const uint32_t uartIotUartFlowControl[ UART_TEST_SET ] = { UART_HWCONTROL_NONE };
+const uint32_t uartIotUartParity[ UART_TEST_SET ] = { UART_PARITY_NONE };
+const uint32_t uartIotUartWordLength[ UART_TEST_SET ] = { UART_WORDLENGTH_8B };
+const uint32_t uartIotUartStopBits[ UART_TEST_SET ] = { UART_STOPBITS_1 };
+
+
+
+#endif /* ifndef _TEST_IOT_CONFIG_H_ */

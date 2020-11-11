@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Utils V1.1.3
+* FreeRTOS+POSIX V1.0.4
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -23,29 +23,15 @@
  * http://www.FreeRTOS.org
  */
 
-#include <stdbool.h>
-
-#include "FreeRTOS.h"
-#include "iot_system_init.h"
-#include "iot_secure_sockets.h"
-#include "iot_crypto.h"
-
-
-/*-----------------------------------------------------------*/
-
 /**
- * @brief Initializes FreeRTOS libraries.
+ * @file FreeRTOS_POSIX_portable.h
+ * @brief Port-specific configuration of FreeRTOS+POSIX.
  */
-BaseType_t SYSTEM_Init( void )
-{
-    BaseType_t xResult = pdPASS;
 
-    CRYPTO_Init();
+#ifndef _FREERTOS_POSIX_PORTABLE_H_
+#define _FREERTOS_POSIX_PORTABLE_H_
 
-    if( xResult == pdPASS )
-    {
-        //xResult = SOCKETS_Init();
-    }
+/* This port uses the defaults in FreeRTOS_POSIX_portable_default.h, so this
+ * file is empty. */
 
-    return xResult;
-}
+#endif /* _FREERTOS_POSIX_PORTABLE_H_ */

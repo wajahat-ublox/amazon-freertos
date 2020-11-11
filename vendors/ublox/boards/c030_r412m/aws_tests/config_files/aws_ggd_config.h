@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Utils V1.1.3
+ * FreeRTOS V1.1.4
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -23,29 +23,24 @@
  * http://www.FreeRTOS.org
  */
 
-#include <stdbool.h>
-
-#include "FreeRTOS.h"
-#include "iot_system_init.h"
-#include "iot_secure_sockets.h"
-#include "iot_crypto.h"
-
-
-/*-----------------------------------------------------------*/
 
 /**
- * @brief Initializes FreeRTOS libraries.
+ * @file aws_ggd_config.h
+ * @brief GGD config options.
  */
-BaseType_t SYSTEM_Init( void )
-{
-    BaseType_t xResult = pdPASS;
 
-    CRYPTO_Init();
+#ifndef _AWS_GGD_CONFIG_H_
+#define _AWS_GGD_CONFIG_H_
 
-    if( xResult == pdPASS )
-    {
-        //xResult = SOCKETS_Init();
-    }
 
-    return xResult;
-}
+/**
+ * @brief The number of your network interface here.
+ */
+#define ggdconfigCORE_NETWORK_INTERFACE     ( 0 )
+
+/**
+ * @brief Size of the array used by jsmn to store the tokens.
+ */
+#define ggdconfigJSON_MAX_TOKENS            ( 128 )
+
+#endif /* _AWS_GGD_CONFIG_H_ */
